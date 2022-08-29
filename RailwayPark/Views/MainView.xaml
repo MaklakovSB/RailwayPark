@@ -3,10 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctg="clr-namespace:WPF.CTG;assembly=WPF.CTG"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:RailwayPark.Views"
+        x:Name="mainWindow"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Content="Цвет заливки" />
+            <xctk:ColorPicker Height="23" Margin="4" Width="140" SelectedColor="{Binding SelectedFillColor, Mode=TwoWay}" />
+        </StackPanel>
+        
+        <ctg:CoordinateTimeGrid x:Name="coordinateTimeGrid"
+                                Grid.Row="1"
+                                Margin="4"
+                                Background="DarkGray"
+                                OriginalPlaneHeight="1000"
+                                OriginalPlaneWidth="800"
+                                VerticalScrollBarVisibility="Visible"
+                                HorizontalScrollBarVisibility="Visible"
+                                VerticalRulerPanelVisibility="Collapsed"
+                                HorizontalRulerPanelVisibility="Collapsed"/>
         
     </Grid>
 </Window>
