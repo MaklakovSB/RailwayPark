@@ -72,6 +72,8 @@
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Models\BasePrimitive.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Services\LineIDGenerator.cs" />
+    <Compile Include="Services\VertexIDGenerator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Models\Vertex.cs" />
     <Compile Include="Views\MainView.xaml.cs">
