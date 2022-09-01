@@ -3,12 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ctg="clr-namespace:WPF.CTG;assembly=WPF.CTG"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:RailwayPark.Views"
+        xmlns:localvm="clr-namespace:RailwayPark.ViewModels"
+        xmlns:converters="clr-namespace:RailwayPark.Converters"
         x:Name="mainWindow"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        Title="MainView"
+        SizeToContent="Height"
+        Width="1600" >
+    <Window.DataContext>
+        <localvm:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:PointCollectionConverter x:Key="Pcc" />
+        <converters:VertexPositionConverter x:Key="Vpc"/>
+        <converters:ColorToBrushConverter x:Key="Ctbc"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,17 +31,59 @@
             <Label Content="Цвет заливки" />
             <xctk:ColorPicker Height="23" Margin="4" Width="140" SelectedColor="{Binding SelectedFillColor, Mode=TwoWay}" />
         </StackPanel>
-        
-        <ctg:CoordinateTimeGrid x:Name="coordinateTimeGrid"
-                                Grid.Row="1"
-                                Margin="4"
-                                Background="DarkGray"
-                                OriginalPlaneHeight="1000"
-                                OriginalPlaneWidth="800"
-                                VerticalScrollBarVisibility="Visible"
-                                HorizontalScrollBarVisibility="Visible"
-                                VerticalRulerPanelVisibility="Collapsed"
-                                HorizontalRulerPanelVisibility="Collapsed"/>
-        
+
+        <Viewbox Grid.Row="1" Margin="4" >
+            <Border BorderThickness="0.6" BorderBrush="Black" x:Name="mainBorder">
+                <ItemsControl ItemsSource="{Binding PirmitiveItems}" >
+
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type localvm:Vertex}">
+                            <StackPanel>
+                                <Ellipse Fill="Brown" 
+                                         Width="2" 
+                                         Height="2"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type localvm:Line}">
+                            <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
+                                      Stroke="Black"
+                                      Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
+                                      StrokeThickness="0.6"/>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Width="600" Height="130" SnapsToDevicePixels="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource Vpc}">
+                                        <Binding Path="X"/>
+                                        <Binding Path="PrimitiveType"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.Top">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource Vpc}">
+                                        <Binding Path="Y"/>
+                                        <Binding Path="PrimitiveType"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Canvas.ZIndex" Value="{Binding Z}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                </ItemsControl>
+            </Border>
+        </Viewbox>
+
     </Grid>
 </Window>
