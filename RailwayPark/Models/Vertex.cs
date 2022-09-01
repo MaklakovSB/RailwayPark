@@ -1,10 +1,17 @@
 ﻿using RailwayPark.Models;
-using System;
+using RailwayPark.Services;
 
 namespace RailwayPark.ViewModels
 {
-    public class Vertex : BasePrimitive
+    public sealed class Vertex : BasePrimitive
     {
+        public uint VertexID { protected set; get; }
+
+        public Vertex()
+        {
+            VertexID = VertexIDGenerator.Source.nextId();
+        }
+
         public override string PrimitiveType => "Vertex";
     }
 }

@@ -4,7 +4,6 @@ namespace RailwayPark.Models
 {
     public abstract class BasePrimitive
     {
-        public uint Id { set; get; }
         public Double X { set; get; }
         public Double Y { set; get; }
         public int Z { set; get; }
