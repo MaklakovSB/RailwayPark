@@ -49,10 +49,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPF.CTG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\WPF.CTG.dll</HintPath>
-    </Reference>
     <Reference Include="Xceed.Wpf.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
@@ -66,12 +62,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\ColorToBrushConverter .cs" />
+    <Compile Include="Converters\PointCollectionConverter.cs" />
+    <Compile Include="Converters\VertexPositionConverter.cs" />
     <Compile Include="Delegates\DelegateCommand.cs.cs" />
     <Compile Include="Delegates\DelegateParametrizedCommand.cs" />
     <Compile Include="Interfaces\IRaiseCanExecuteChanged.cs" />
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
+    <Compile Include="Models\BasePrimitive.cs" />
+    <Compile Include="Models\Line.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Models\Vertex.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -110,10 +112,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="dll\WPF.CTG.dll" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
