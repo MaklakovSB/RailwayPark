@@ -7,6 +7,10 @@ using System.Windows.Media;
 
 namespace RailwayPark.Converters
 {
+    /// <summary>
+    /// Конвертер коллекций Piont входящих в объекты Line.
+    /// Коллекции Piont описывают геометрию ломаной линии.
+    /// </summary>
     public class PointCollectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -23,12 +27,12 @@ namespace RailwayPark.Converters
                 return pointCollection;
             }
 
-            return null;
+            throw new ArgumentException("Не правильный тип одного из аргументов либо обоих: value, targetType");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException("ConvertBack not supported");
+            throw new NotSupportedException("Метод обратной конвертации не поддерживается");
         }
     }
 }

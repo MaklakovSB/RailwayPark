@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace RailwayPark.Converters
 {
+    /// <summary>
+    /// Конвертер предназначен для правильного позиционирования объектов Ellipse на холсте.
+    /// Для отображения объектов Vertex используется Ellipse, координата отрисовки которого,
+    /// соответствует не центру, а верхнему левому углу, конвертер смещает Ellipse так чтобы
+    /// его центр соответствовал координате указанной в Vertex.
+    /// </summary>
     public class VertexPositionConverter : IMultiValueConverter
     {
         public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
         {
-           
             if (value.GetType() == typeof(object[]))
             {
                 if (targetType == typeof(double))
