@@ -3,6 +3,7 @@ using RailwayPark.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -48,6 +49,14 @@ namespace RailwayPark.ViewModels
             // Инициализируем коллекцию исходными данными.
             InitialData();
 
+            var Lines = PirmitiveItems.OfType<Line>().ToList();
+            var Vertexes = PirmitiveItems.OfType<Vertex>().ToList();
+
+            foreach (var line in Lines)
+            {
+                line.DetectAndFillTrailingVertices(Vertexes);
+            }
+
         }
 
         /// <summary>
@@ -55,19 +64,21 @@ namespace RailwayPark.ViewModels
         /// </summary>
         private void InitialData()
         {
-            PirmitiveItems.Add(new Vertex() { X = 0, Y = 40, Z = 1 });
+            // Дополненые точки.
+            PirmitiveItems.Add(new Vertex() { X = 0,   Y = 40, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 140, Y = 130, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 600, Y = 80, Z = 1 });
 
-            PirmitiveItems.Add(new Vertex() { X = 40, Y = 30, Z = 1 });
-            PirmitiveItems.Add(new Vertex() { X = 50, Y = 40, Z = 1 });
+            // Остальные точки по тз.
+            PirmitiveItems.Add(new Vertex() { X = 40,  Y = 30, Z = 1 });
+            PirmitiveItems.Add(new Vertex() { X = 50,  Y = 40, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 450, Y = 40, Z = 1 });
-            PirmitiveItems.Add(new Vertex() { X = 60, Y = 50, Z = 1 });
-            PirmitiveItems.Add(new Vertex() { X = 70, Y = 60, Z = 1 });
+            PirmitiveItems.Add(new Vertex() { X = 60,  Y = 50, Z = 1 });
+            PirmitiveItems.Add(new Vertex() { X = 70,  Y = 60, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 500, Y = 60, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 450, Y = 60, Z = 1 });
-            PirmitiveItems.Add(new Vertex() { X = 80, Y = 70, Z = 1 });
-            PirmitiveItems.Add(new Vertex() { X = 90, Y = 80, Z = 1 });
+            PirmitiveItems.Add(new Vertex() { X = 80,  Y = 70, Z = 1 });
+            PirmitiveItems.Add(new Vertex() { X = 90,  Y = 80, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 470, Y = 80, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 450, Y = 80, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 520, Y = 80, Z = 1 });
@@ -76,7 +87,7 @@ namespace RailwayPark.ViewModels
             PirmitiveItems.Add(new Vertex() { X = 460, Y = 90, Z = 1 });
             PirmitiveItems.Add(new Vertex() { X = 450, Y = 100, Z = 1 });
 
-
+            // Линии.
             var line = new Line() { Z = 0 };
             line.Points.Add(new Point(0, 40));
             line.Points.Add(new Point(10, 30));
@@ -89,7 +100,7 @@ namespace RailwayPark.ViewModels
             PirmitiveItems.Add(line);
 
             line = new Line() { Z = 0 };
-            line.Points.Add(new Point(510, 80));
+            line.Points.Add(new Point(520, 80));
             line.Points.Add(new Point(600, 80));
             PirmitiveItems.Add(line);
 
@@ -194,10 +205,6 @@ namespace RailwayPark.ViewModels
 
             line = new Line() { Z = 0 };
             line.Points.Add(new Point(220, 90));
-            line.Points.Add(new Point(230, 100));
-            PirmitiveItems.Add(line);
-
-            line = new Line() { Z = 0 };
             line.Points.Add(new Point(230, 100));
             line.Points.Add(new Point(450, 100));
             PirmitiveItems.Add(line);
