@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailwayPark", "RailwayPark\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTests", "CommonTests\CommonTests.csproj", "{58F172FA-037E-40BF-8F4F-F3AECC450AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{BCDA4865-52EC-4DF2-90A6-908DA018DAFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{58F172FA-037E-40BF-8F4F-F3AECC450AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58F172FA-037E-40BF-8F4F-F3AECC450AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58F172FA-037E-40BF-8F4F-F3AECC450AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDA4865-52EC-4DF2-90A6-908DA018DAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDA4865-52EC-4DF2-90A6-908DA018DAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDA4865-52EC-4DF2-90A6-908DA018DAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDA4865-52EC-4DF2-90A6-908DA018DAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
