@@ -59,7 +59,7 @@ namespace RailwayPark.ViewModels
         public override string PrimitiveType => "Line";
 
         /// <summary>
-        /// Обнаруживает замыкающие вершины.
+        /// Обнаруживает замыкающие вершины и заполняет соответствующие свойства объекта Line.
         /// </summary>
         /// <param name="vertexes"></param>
         public void DetectAndFillTrailingVertices(List<Vertex> vertexes)
