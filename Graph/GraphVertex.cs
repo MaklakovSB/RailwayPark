@@ -5,10 +5,10 @@
     /// </summary>
     public class GraphVertex
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
-        public GraphVertex(int x, int y)
+        public GraphVertex(double x, double y)
         {
             X = x;
             Y = y;
