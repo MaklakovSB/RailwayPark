@@ -14,7 +14,7 @@ namespace RailwayPark.ViewModels
         /// <summary>
         /// Идентификатор линии.
         /// </summary>
-        public uint LineID { protected set; get; }
+        public uint LineID { private set; get; }
 
         /// <summary>
         /// Первая замыкающая вершина.
@@ -61,8 +61,8 @@ namespace RailwayPark.ViewModels
         /// <summary>
         /// Обнаруживает замыкающие вершины и заполняет соответствующие свойства объекта Line.
         /// </summary>
-        /// <param name="vertexes"></param>
-        public void DetectAndFillTrailingVertices(List<Vertex> vertexes)
+        /// <param name="verteces"></param>
+        public void DetectAndFillTrailingVertices(List<Vertex> verteces)
         {
             if (Points.Count() >= 2)
             {
@@ -71,8 +71,8 @@ namespace RailwayPark.ViewModels
                 var vertex2 = Points.Last();
 
                 // Получим замыкающие вершины. Идентификатор VertexID реального объекта не может быть 0.
-                var result1 = vertexes.FirstOrDefault(n => n.X == vertex1.X && n.Y == vertex1.Y).VertexID;
-                var result2 = vertexes.FirstOrDefault(n => n.X == vertex2.X && n.Y == vertex2.Y).VertexID;
+                var result1 = verteces.FirstOrDefault(n => n.X == vertex1.X && n.Y == vertex1.Y).VertexID;
+                var result2 = verteces.FirstOrDefault(n => n.X == vertex2.X && n.Y == vertex2.Y).VertexID;
 
                 // Сохраним вершины либо поднимем исключение.
                 if (result1 != 0 && result2 != 0)
