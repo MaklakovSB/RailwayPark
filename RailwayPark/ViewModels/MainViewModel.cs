@@ -1,7 +1,10 @@
 ﻿using Graph;
+using RailwayPark.Enums;
+using RailwayPark.Factory;
 using RailwayPark.Interfaces;
 using RailwayPark.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -49,8 +52,6 @@ namespace RailwayPark.ViewModels
         {
             // Инициализируем коллекцию исходными данными.
             InitialData();
-
-
         }
 
         /// <summary>
@@ -61,164 +62,157 @@ namespace RailwayPark.ViewModels
             // Добавление примитивов.
 
             // Дополненые точки.
-            PirmitiveItems.Add(new Vertex() { X = 0,   Y = 40, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 140, Y = 130, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 600, Y = 80, Z = 2 });
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 0, 40, 2));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 140, 130, 2));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 600, 80, 2));
 
             // Остальные точки по тз.
-            PirmitiveItems.Add(new Vertex() { X = 40,  Y = 30, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 50,  Y = 40, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 450, Y = 40, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 60,  Y = 50, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 70,  Y = 60, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 500, Y = 60, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 450, Y = 60, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 80,  Y = 70, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 90,  Y = 80, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 470, Y = 80, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 450, Y = 80, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 520, Y = 80, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 100, Y = 90, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 220, Y = 90, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 460, Y = 90, Z = 2 });
-            PirmitiveItems.Add(new Vertex() { X = 450, Y = 100, Z = 2 });
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 40, 30, 2));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 50, 40, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 450, 40, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 60, 50, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 70, 60, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 500, 60, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 450, 60, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 80, 70, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 90, 80, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 470, 80, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 450, 80, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 520, 80, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 100, 90, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 220, 90, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 460, 90, 2 ));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Vetex, 450, 100, 2 ));
 
             // Линии.
-            var line = new Line() { Z = 1 };
-            line.Points.Add(new Point(0, 40));
-            line.Points.Add(new Point(10, 30));
-            line.Points.Add(new Point(40, 30));
-            PirmitiveItems.Add(line);
+            var verteces = PirmitiveItems.OfType<Vertex>().ToList();
+            var points = new List<Point>();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(100, 90));
-            line.Points.Add(new Point(140, 130));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(0, 40));
+            points.Add(new Point(10, 30));
+            points.Add(new Point(40, 30));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(520, 80));
-            line.Points.Add(new Point(600, 80));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(100, 90));
+            points.Add(new Point(140, 130));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(40, 30));
-            line.Points.Add(new Point(440, 30));
-            line.Points.Add(new Point(450, 40));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(520, 80));
+            points.Add(new Point(600, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(450, 40));
-            line.Points.Add(new Point(50, 40));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(40, 30));
+            points.Add(new Point(440, 30));
+            points.Add(new Point(450, 40));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(50, 40));
-            line.Points.Add(new Point(40, 30));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(450, 40));
+            points.Add(new Point(50, 40));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(450, 40));
-            line.Points.Add(new Point(480, 40));
-            line.Points.Add(new Point(500, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(50, 40));
+            points.Add(new Point(40, 30));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(500, 60));
-            line.Points.Add(new Point(450, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(450, 40));
+            points.Add(new Point(480, 40));
+            points.Add(new Point(500, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(450, 60));
-            line.Points.Add(new Point(440, 50));
-            line.Points.Add(new Point(60, 50));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(500, 60));
+            points.Add(new Point(450, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(60, 50));
-            line.Points.Add(new Point(50, 40));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(450, 60));
+            points.Add(new Point(440, 50));
+            points.Add(new Point(60, 50));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(60, 50));
-            line.Points.Add(new Point(70, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(60, 50));
+            points.Add(new Point(50, 40));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(70, 60));
-            line.Points.Add(new Point(450, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(60, 50));
+            points.Add(new Point(70, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(80, 70));
-            line.Points.Add(new Point(440, 70));
-            line.Points.Add(new Point(450, 80));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(70, 60));
+            points.Add(new Point(450, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(80, 70));
-            line.Points.Add(new Point(70, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(80, 70));
+            points.Add(new Point(440, 70));
+            points.Add(new Point(450, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(450, 80));
-            line.Points.Add(new Point(520, 80));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(80, 70));
+            points.Add(new Point(70, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(520, 80));
-            line.Points.Add(new Point(500, 60));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(450, 80));
+            points.Add(new Point(520, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(90, 80));
-            line.Points.Add(new Point(450, 80));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(520, 80));
+            points.Add(new Point(500, 60));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(90, 80));
-            line.Points.Add(new Point(80, 70));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(90, 80));
+            points.Add(new Point(450, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(470, 80));
-            line.Points.Add(new Point(460, 90));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(90, 80));
+            points.Add(new Point(80, 70));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(460, 90));
-            line.Points.Add(new Point(220, 90));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(470, 80));
+            points.Add(new Point(460, 90));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(220, 90));
-            line.Points.Add(new Point(100, 90));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(460, 90));
+            points.Add(new Point(220, 90));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(100, 90));
-            line.Points.Add(new Point(90, 80));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(220, 90));
+            points.Add(new Point(100, 90));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(220, 90));
-            line.Points.Add(new Point(230, 100));
-            line.Points.Add(new Point(450, 100));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(100, 90));
+            points.Add(new Point(90, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            line = new Line() { Z = 1 };
-            line.Points.Add(new Point(450, 100));
-            line.Points.Add(new Point(460, 90));
-            PirmitiveItems.Add(line);
+            points.Add(new Point(220, 90));
+            points.Add(new Point(230, 100));
+            points.Add(new Point(450, 100));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
-            // Получаем линии и вершины отдельными списками.
-            var Lines = PirmitiveItems.OfType<Line>().ToList();
-            var Vertexes = PirmitiveItems.OfType<Vertex>().ToList();
-
-            // Находим вершины для всех линий.
-            foreach (var currentline in Lines)
-            {
-                currentline.DetectAndFillTrailingVertices(Vertexes);
-            }
+            points.Add(new Point(450, 100));
+            points.Add(new Point(460, 90));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
 
         }
 
@@ -227,6 +221,33 @@ namespace RailwayPark.ViewModels
         /// </summary>
         private void FindEnclosedAreasOfPrimitives()
         {
+            GraphDFS graph = new GraphDFS();
+
+            // Получаем линии и вершины отдельными списками.
+            var Lines = PirmitiveItems.OfType<Line>().ToList();
+            var Verteces = PirmitiveItems.OfType<Vertex>().ToList();
+
+            // Заполним граф вершинами.
+            foreach(var vertex in Verteces)
+            {
+                graph.Verteces.Add(new GraphVertex((int)vertex.X, (int)vertex.Y));
+            }
+
+            // Заполним граф гранями.
+            foreach (var line in Lines)
+            {
+                graph.Edges.Add(new GraphEdge((int)line.Vertex1, (int)line.Vertex2));
+            }
+
+            // Находим циклы.
+            graph.CyclesSearch();
+
+
+            Area area = new Area() { Z = 2 };
+            area.Points.Add(new Point(100, 90));
+            area.Points.Add(new Point(140, 130));
+            PirmitiveItems.Add(area);
+
 
         }
 
