@@ -15,7 +15,7 @@
         /// </summary>
         private LineIDGenerator() { }
 
-        private uint nextID = 1;
+        private int nextID = 0;
 
         private static readonly LineIDGenerator source = new LineIDGenerator();
 
@@ -27,7 +27,7 @@
             }
         }
 
-        public uint nextId()
+        public int nextId()
         {
             return nextID++;
         }

@@ -12,7 +12,7 @@
         /// </summary>
         private AreaIDGenerator() { }
 
-        private uint nextID = 1;
+        private int nextID = 0;
 
         private static readonly AreaIDGenerator source = new AreaIDGenerator();
 
@@ -24,7 +24,7 @@
             }
         }
 
-        public uint nextId()
+        public int nextId()
         {
             return nextID++;
         }
