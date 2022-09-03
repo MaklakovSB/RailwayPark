@@ -224,30 +224,23 @@ namespace RailwayPark.ViewModels
             GraphDFS graph = new GraphDFS();
 
             // Получаем линии и вершины отдельными списками.
-            var Lines = PirmitiveItems.OfType<Line>().ToList();
-            var Verteces = PirmitiveItems.OfType<Vertex>().ToList();
+            var lines = PirmitiveItems.OfType<Line>().ToList();
+            var verteces = PirmitiveItems.OfType<Vertex>().ToList();
 
             // Заполним граф вершинами.
-            foreach(var vertex in Verteces)
+            foreach(var vertex in verteces)
             {
                 graph.Verteces.Add(new GraphVertex((int)vertex.X, (int)vertex.Y));
             }
 
             // Заполним граф гранями.
-            foreach (var line in Lines)
+            foreach (var line in lines)
             {
                 graph.Edges.Add(new GraphEdge((int)line.Vertex1, (int)line.Vertex2));
             }
 
             // Находим циклы.
             graph.CyclesSearch();
-
-
-            Area area = new Area() { Z = 2 };
-            area.Points.Add(new Point(100, 90));
-            area.Points.Add(new Point(140, 130));
-            PirmitiveItems.Add(area);
-
 
         }
 
