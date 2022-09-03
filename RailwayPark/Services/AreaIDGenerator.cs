@@ -28,5 +28,9 @@
         {
             return nextID++;
         }
+        public void ResetCounter()
+        {
+            nextID = 0;
+        }
     }
 }
