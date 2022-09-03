@@ -82,12 +82,14 @@ namespace RailwayPark.ViewModels
                 }
                 else
                 {
-                    throw new ArgumentNullException($"Метод DetectAndFillTrailingVertices не обнаружил замыкающую вершину для объекта Line.LineID = {LineID}.");
+                    throw new ArgumentNullException($"Метод DetectAndFillTrailingVertices не обнаружил " +
+                        $"замыкающую вершину для объекта Line.LineID = {LineID}.");
                 }
             }
             else
             {
-                throw new ArgumentNullException($"Метод DetectAndFillTrailingVertices не обнаружил достаточное количество объектов Point в объекте Line.LineID = {LineID}.");
+                throw new ArgumentNullException($"Метод DetectAndFillTrailingVertices не обнаружил" +
+                    $" достаточное количество объектов Point в объекте Line.LineID = {LineID}.");
             }
         }
     }

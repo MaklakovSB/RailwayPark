@@ -214,6 +214,13 @@ namespace RailwayPark.ViewModels
             PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
             points.Clear();
 
+            //// Тест метода DetectAndFillTrailingVertices
+            //// Линия не имеющая замыкающих вершин.
+            ////points.Add(new Point(450.5, 100.5));
+            ////points.Add(new Point(460.5, 90.5));
+            ////PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            ////points.Clear();
+
         }
 
         /// <summary>
