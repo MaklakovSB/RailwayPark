@@ -3,6 +3,7 @@ using RailwayPark.Enums;
 using RailwayPark.Factory;
 using RailwayPark.Interfaces;
 using RailwayPark.Models;
+using RailwayPark.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,16 @@ namespace RailwayPark.ViewModels
     public class MainViewModel : IViewModel, INotifyPropertyChanged
     {
         #region Свойства и поля
+
+        /// <summary>
+        /// Экземпляр объекта граф.
+        /// </summary>
+        private GraphDFS graph = new GraphDFS();
+
+        /// <summary>
+        /// Циклы будущих регионов.
+        /// </summary>
+        private List<List<int>> regonsCycle = new List<List<int>>();
 
         /// <summary>
         /// Выбираемый цвет заливки.
@@ -59,6 +70,11 @@ namespace RailwayPark.ViewModels
         /// </summary>
         private void InitialData()
         {
+            // Сбросить счётчики идентификаторов.
+            VertexIDGenerator.Source.ResetCounter();
+            LineIDGenerator.Source.ResetCounter();
+            AreaIDGenerator.Source.ResetCounter();
+
             // Добавление примитивов.
 
             // Дополненые точки.
@@ -221,6 +237,7 @@ namespace RailwayPark.ViewModels
             ////PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
             ////points.Clear();
 
+            FindEnclosedAreasOfPrimitives();
         }
 
         /// <summary>
@@ -228,8 +245,6 @@ namespace RailwayPark.ViewModels
         /// </summary>
         private void FindEnclosedAreasOfPrimitives()
         {
-            GraphDFS graph = new GraphDFS();
-
             // Получаем линии и вершины отдельными списками.
             var lines = PirmitiveItems.OfType<Line>().ToList();
             var verteces = PirmitiveItems.OfType<Vertex>().ToList();
@@ -237,18 +252,31 @@ namespace RailwayPark.ViewModels
             // Заполним граф вершинами.
             foreach(var vertex in verteces)
             {
-                graph.Verteces.Add(new GraphVertex((int)vertex.X, (int)vertex.Y));
+                graph.Verteces.Add(new GraphVertex(vertex.X, vertex.Y));
             }
 
             // Заполним граф гранями.
             foreach (var line in lines)
             {
-                graph.Edges.Add(new GraphEdge((int)line.Vertex1, (int)line.Vertex2));
+                graph.Edges.Add(new GraphEdge(line.Vertex1, line.Vertex2));
             }
 
             // Находим циклы.
             graph.CyclesSearch();
 
+            // Скопируем циклы.
+            regonsCycle.Clear();
+            foreach(var cycle in graph.Cycles)
+            {
+                var nc = new List<int>();
+                foreach(var vertex in cycle)
+                {
+                    nc.Add(vertex);
+                }
+                regonsCycle.Add(nc);
+            }
+
+            graph.ClearAllLists();
         }
 
         #region Имплементация IViewModel
