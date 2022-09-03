@@ -51,6 +51,13 @@
                                       Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
                                       StrokeThickness="0.6"/>
                         </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type localvm:Area}">
+                            <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
+                                      Stroke="Black"
+                                      Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
+                                      StrokeThickness="0.6"/>
+                        </DataTemplate>
                     </ItemsControl.Resources>
 
                     <ItemsControl.ItemsPanel>
