@@ -49,10 +49,10 @@ namespace Graph
         /// <summary>
         /// Поиск в глубину.
         /// </summary>
-        private void DFScycle(int startVertex, int endV, List<GraphEdge> edges, int[] color, int unavailableEdge, List<int> cycle)
+        private void DFScycle(int startVertex, int endVertex, List<GraphEdge> edges, int[] color, int unavailableEdge, List<int> cycle)
         {
 
-            if (startVertex != endV)
+            if (startVertex != endVertex)
             {
                 color[startVertex] = 2;
             }
@@ -109,14 +109,14 @@ namespace Graph
                 {
                     List<int> cycleNEW = new List<int>(cycle);
                     cycleNEW.Add(edges[w].Vertex2);
-                    DFScycle(edges[w].Vertex2, endV, edges, color, w, cycleNEW);
+                    DFScycle(edges[w].Vertex2, endVertex, edges, color, w, cycleNEW);
                     color[edges[w].Vertex2] = 1;
                 }
                 else if (color[edges[w].Vertex1] == 1 && edges[w].Vertex2 == startVertex)
                 {
                     List<int> cycleNEW = new List<int>(cycle);
                     cycleNEW.Add(edges[w].Vertex1);
-                    DFScycle(edges[w].Vertex1, endV, edges, color, w, cycleNEW);
+                    DFScycle(edges[w].Vertex1, endVertex, edges, color, w, cycleNEW);
                     color[edges[w].Vertex1] = 1;
                 }
             }
