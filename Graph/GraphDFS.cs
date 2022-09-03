@@ -8,7 +8,7 @@ namespace Graph
         /// <summary>
         /// Список обнаруженных циклов в виде строк.
         /// </summary>
-        private List<string> catalogCycles = new List<string>();
+        private List<string> CatalogCycles = new List<string>();
 
         /// <summary>
         /// Список вершин.
@@ -68,9 +68,9 @@ namespace Graph
 
                 bool palindromeFlag = false;
 
-                for (int i = 0; i < catalogCycles.Count; i++)
+                for (int i = 0; i < CatalogCycles.Count; i++)
                 {
-                    if (catalogCycles[i].ToString() == s)
+                    if (CatalogCycles[i].ToString() == s)
                     {
                         palindromeFlag = true;
                         break;
@@ -91,7 +91,7 @@ namespace Graph
                         ls.Add(cycle[i]);
                     }
 
-                    catalogCycles.Add(s);
+                    CatalogCycles.Add(s);
                     Cycles.Add(ls);
                 }
 
@@ -172,12 +172,12 @@ namespace Graph
         /// <summary>
         /// Очистка списков.
         /// </summary>
-        public void ClearLists()
+        public void ClearAllLists()
         {
             Verteces.Clear();
             Edges.Clear();
             Cycles.Clear();
-            catalogCycles.Clear();
+            CatalogCycles.Clear();
         }
 
         /// <summary>
@@ -198,6 +198,12 @@ namespace Graph
                 DFScycle(i, i, Edges, color, -1, cycle);
             }
 
+            // Очистить исходные списки.
+            CatalogCycles.Clear();
+            Verteces.Clear();
+            Edges.Clear();
+
+            // Исключить повторяющиеся лишние циклы.
             ExcludeCyclesWithTheSameVertices();
         }
     }
