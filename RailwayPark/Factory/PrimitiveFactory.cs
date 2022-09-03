@@ -52,7 +52,7 @@ namespace RailwayPark.Factory
 
                     foreach(var point in points)
                     {
-                        line.Points.Add(point);
+                        line.Points.Add(new Point(point.X, point.Y));
                     }
 
                     line.DetectAndFillTrailingVertices(verteces);
@@ -80,7 +80,7 @@ namespace RailwayPark.Factory
 
                     foreach (var point in points)
                     {
-                        area.Points.Add(point);
+                        area.Points.Add(new Point(point.X, point.Y));
                     }
 
                     return area;
