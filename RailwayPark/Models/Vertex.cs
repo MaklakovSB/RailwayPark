@@ -5,7 +5,7 @@ namespace RailwayPark.ViewModels
 {
     public sealed class Vertex : BasePrimitive
     {
-        public uint VertexID { private set; get; }
+        public int VertexID { private set; get; }
 
         public Vertex()
         {

@@ -10,7 +10,7 @@ namespace RailwayPark.ViewModels
         /// <summary>
         /// Идентификатор линии.
         /// </summary>
-        public uint AreaID { protected set; get; }
+        public int AreaID { protected set; get; }
 
         /// <summary>
         /// Коллекция Points.
