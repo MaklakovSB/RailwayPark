@@ -39,7 +39,9 @@
                     <ItemsControl.Resources>
                         <DataTemplate DataType="{x:Type localvm:Vertex}">
                             <StackPanel>
-                                <Ellipse Fill="Brown" 
+                                <Ellipse Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}"
+                                         Stroke="Transparent"
+                                         StrokeThickness="0.0"
                                          Width="2" 
                                          Height="2"/>
                             </StackPanel>
@@ -47,16 +49,16 @@
 
                         <DataTemplate DataType="{x:Type localvm:Line}">
                             <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
-                                      Stroke="Black"
-                                      Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
-                                      StrokeThickness="0.6"/>
+                                      Stroke="{Binding Path=Stroke, Converter={StaticResource Ctbc}}"
+                                      Fill="Transparent" 
+                                      StrokeThickness="{Binding Path=StrokeThickness}"/>
                         </DataTemplate>
 
                         <DataTemplate DataType="{x:Type localvm:Area}">
                             <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
                                       Stroke="Transparent"
-                                      Fill="Bisque" 
-                                      StrokeThickness="0.6"/>
+                                      Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
+                                      StrokeThickness="0.0"/>
                         </DataTemplate>
                     </ItemsControl.Resources>
 
