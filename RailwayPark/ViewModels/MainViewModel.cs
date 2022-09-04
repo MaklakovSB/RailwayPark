@@ -277,6 +277,119 @@ namespace RailwayPark.ViewModels
             }
 
             graph.ClearAllLists();
+
+            CreatingEnclosedRegionPrimitives();
+        }
+
+        /// <summary>
+        /// Создание примитивов замкнутых областей
+        /// </summary>
+        private void CreatingEnclosedRegionPrimitives()
+        {
+            if(regonsCycle.Count == 0)
+            {
+                return;
+            }
+
+            var lines = PirmitiveItems.OfType<Line>().ToList();
+            var searchedListsPoints = new List<List<List<Point>>>();
+
+
+            // Проход по всем циклам, каждый из которых станет замкнутым регионом.
+            foreach (var cycle in regonsCycle)
+            {
+                // Списки точек - один список-списков соответствует одному региону.
+                var ListsPoints = new List<List<Point>>();
+
+                // Проход по идентификаторам вершин одного цикла.
+                for (int i = 0; i < cycle.Count ; i++)
+                {
+                    // Сначала получим пару идентификаторов вершин соответствующих
+                    // началу и концу возможно ломаной линий, чтобы найти объект Line
+                    // соответствующий части цикла.
+                    var vertex1 = cycle[i];
+                    int vertex2;
+
+                    // Если не последняя итерация,
+                    // то вторая вершина следующая по списку,
+                    // иначе - первая в списке.
+                    if ((i + 1) < cycle.Count)
+                    {
+                        vertex2 = cycle[i + 1];
+                    }
+                    else
+                    {
+                        vertex2 = cycle[0];
+                    }
+
+                    // Будем копировать точки линии в из списка pointsFrom в список pointsIn.
+                    var pointsFrom = new List<Point>();
+                    var pointsIn = new List<Point>();
+
+                    // Пытаемся найти линию.
+                    var line = lines.FirstOrDefault(x => x.Vertex1 == vertex1 && x.Vertex2 == vertex2);
+                    
+                    if(line == null)
+                    {
+                        // Если линия не нашлась, то ищем в обратном порядке вершин.
+                        line = lines.FirstOrDefault(x => x.Vertex1 == vertex2 && x.Vertex2 == vertex1);
+
+                        if (line == null)
+                        {
+                            throw new Exception("CreatingEnclosedRegionPrimitives");
+                        }
+
+                        // Берём список Point в обратном порядке.
+                        pointsFrom = line.Points.Reverse().ToList<Point>();
+                    }
+                    else
+                    {
+                        // Берём список Point в прямом порядке.
+                        pointsFrom = line.Points.ToList<Point>();
+                    }
+
+                    // Копируем список Point с созданием новых экземпляров.
+                    foreach (var point in pointsFrom)
+                    {
+                        pointsIn.Add(new Point(point.X, point.Y));
+                    }
+
+                    // Заносим список точек одного ребра в список-списков точек.
+                    ListsPoints.Add(pointsIn);
+                }
+
+                // Заносим список-списков точек в список в соответствующий регионам.
+                searchedListsPoints.Add(ListsPoints);
+            }
+
+            foreach(var region in searchedListsPoints)
+            {
+                List<Point> regp = new List<Point>();
+
+                for (var j = 0; j < region.Count; j++)
+                {
+                    var edge = region[j];
+                    
+                    for (var i = 0; i < edge.Count - 1 ; i++)
+                    {
+                        regp.Add(edge[i]);
+
+                        if((edge.Count - 1) == i)
+                        {
+                            regp.Add(edge[i+1]);
+                        }
+
+                    }
+                }
+
+                var closed = new Point(regp.First().X, regp.First().Y);
+                regp.Add(closed);
+
+                PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Area, 0, 0, 2, regp));
+
+            }
+
+
         }
 
         #region Имплементация IViewModel
