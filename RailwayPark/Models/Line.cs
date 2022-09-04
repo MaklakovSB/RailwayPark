@@ -3,13 +3,14 @@ using RailwayPark.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
 namespace RailwayPark.ViewModels
 {
-    public sealed class Line : BasePrimitive
+    public sealed class Line : BasePrimitive, INotifyPropertyChanged
     {
         /// <summary>
         /// Идентификатор линии.
@@ -36,14 +37,34 @@ namespace RailwayPark.ViewModels
         private ObservableCollection<Point> points = new ObservableCollection<Point>();
 
         /// <summary>
-        /// Цвет заливки.
+        /// Цвет контура.
         /// </summary>
-        public Color Fill
+        public Color Stroke
         {
-            get { return fill; }
-            set { fill = value; }
+            get { return stroke; }
+
+            set
+            {
+                stroke = value;
+                OnPropertyChanged(nameof(Stroke));
+            }
         }
-        private Color fill = Brushes.Transparent.Color;
+        private Color stroke = Brushes.Black.Color;
+
+        /// <summary>
+        /// Толщина линии.
+        /// </summary>
+        public double StrokeThickness
+        {
+            get { return strokeThickness; }
+
+            set
+            {
+                strokeThickness = value;
+                OnPropertyChanged(nameof(StrokeThickness));
+            }
+        }
+        private double strokeThickness = 0.6;
 
         /// <summary>
         /// Конструктор.
@@ -92,5 +113,16 @@ namespace RailwayPark.ViewModels
                     $" достаточное количество объектов Point в объекте Line.LineID = {LineID}.");
             }
         }
+
+        #region Имплементация INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
