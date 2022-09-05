@@ -1,4 +1,5 @@
 ﻿using Graph;
+using RailwayPark.Delegates;
 using RailwayPark.Enums;
 using RailwayPark.Factory;
 using RailwayPark.Interfaces;
@@ -10,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace RailwayPark.ViewModels
@@ -53,6 +55,52 @@ namespace RailwayPark.ViewModels
             get { return pirmitiveItems; }
         }
         private ObservableCollection<BasePrimitive> pirmitiveItems = new ObservableCollection<BasePrimitive>();
+
+        /// <summary>
+        /// Коллекция area.
+        /// </summary>
+        public ObservableCollection<Area> AreaItems
+        {
+            get
+            {
+                return areaItems;
+            }
+        }
+        private ObservableCollection<Area> areaItems = new ObservableCollection<Area>();
+
+        /// <summary>
+        /// Выбранный регион для заливки.
+        /// </summary>
+        public Area SelectedAreaItem
+        {
+            set
+            {
+                selectedAreaItem = value;
+                OnPropertyChanged(nameof(SelectedAreaItem));
+            }
+        }
+        private Area selectedAreaItem;
+
+        #endregion
+
+        #region Команды
+
+        /// <summary>
+        /// Смена цвета для выбранного региона.
+        /// </summary>
+        public ICommand CangeColorCommand
+        {
+            get
+            {
+                if (cangeColorCommand == null)
+                {
+                    cangeColorCommand = new DelegateCommand(CangeColor);
+                }
+
+                return cangeColorCommand;
+            }
+        }
+        private ICommand cangeColorCommand;
 
         #endregion
 
@@ -386,10 +434,25 @@ namespace RailwayPark.ViewModels
                 regp.Add(closed);
 
                 PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Area, 0, 0, 2, regp));
-
             }
 
+            var newAreas = PirmitiveItems.OfType<Area>().ToList();
 
+            foreach(var area in newAreas)
+            {
+                AreaItems.Add(area);
+            }
+        }
+
+        /// <summary>
+        /// Метод смены цвета областей.
+        /// </summary>
+        private void CangeColor()
+        { 
+            if(selectedAreaItem != null)
+            {
+                selectedAreaItem.Fill = SelectedFillColor;
+            }
         }
 
         #region Имплементация IViewModel
