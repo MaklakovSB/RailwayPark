@@ -36,7 +36,11 @@ namespace RailwayPark.ViewModels
                 OnPropertyChanged(nameof(Fill));
             }
         }
-        private Color fill = Brushes.Bisque.Color;
+        private Color fill = Brushes.Transparent.Color;
+
+        public override string PrimitiveType => "Area";
+
+        public string DisplayNeme => $@"{PrimitiveType} №{AreaID}";
 
         /// <summary>
         /// Конструктор.
@@ -45,8 +49,6 @@ namespace RailwayPark.ViewModels
         {
             AreaID = AreaIDGenerator.Source.nextId();
         }
-
-        public override string PrimitiveType => "Area";
 
         #region Имплементация INotifyPropertyChanged
 
