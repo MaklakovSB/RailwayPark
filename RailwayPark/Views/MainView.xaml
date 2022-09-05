@@ -30,8 +30,18 @@
         <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
             <Label Content="Цвет заливки" />
             <xctk:ColorPicker Height="23" Margin="4" Width="140" SelectedColor="{Binding SelectedFillColor, Mode=TwoWay}" />
-        </StackPanel>
+            <Label Content="Варианты" />
+            <ComboBox Height="23" Width="140"
+                      ItemsSource="{Binding AreaItems}"
+                      DisplayMemberPath="DisplayNeme"
+                      SelectedItem="{Binding SelectedAreaItem, Mode=TwoWay}"/>
+            <Button Height="23" 
+                    Width="140" 
+                    Margin="20,0,0,0" 
+                    Content="Сменить цвет"
+                    Command="{Binding CangeColorCommand}"/>
 
+        </StackPanel>
         <Viewbox Grid.Row="1" Margin="4" >
             <Border BorderThickness="0.6" BorderBrush="Black" x:Name="mainBorder">
                 <ItemsControl ItemsSource="{Binding PirmitiveItems}" >
