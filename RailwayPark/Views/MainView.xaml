@@ -24,10 +24,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Margin="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
             <Label Content="Цвет заливки" />
             <xctk:ColorPicker Height="23" Margin="4" Width="140" SelectedColor="{Binding SelectedFillColor, Mode=TwoWay}" />
             <Label Content="Варианты" />
@@ -42,7 +43,21 @@
                     Command="{Binding CangeColorCommand}"/>
 
         </StackPanel>
-        <Viewbox Grid.Row="1" Margin="4" >
+
+        <StackPanel Grid.Row="1" Margin="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Content="Линии" />
+            <ComboBox Height="23" Width="140"
+                      ItemsSource="{Binding LineItems}"
+                      DisplayMemberPath="DisplayNeme"
+                      SelectedItem="{Binding SelectedLineItem, Mode=TwoWay}"/>
+            <Button Height="23" 
+                    Width="190" 
+                    Margin="20,0,0,0" 
+                    Content="Сменить визуальное состояние"
+                    Command="{Binding CangeVisibilityCommand}"/>
+        </StackPanel>
+        
+        <Viewbox Grid.Row="2" Margin="4" >
             <Border BorderThickness="0.6" BorderBrush="Black" x:Name="mainBorder">
                 <ItemsControl ItemsSource="{Binding PirmitiveItems}" >
 
@@ -60,6 +75,7 @@
                         <DataTemplate DataType="{x:Type localvm:Line}">
                             <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
                                       Stroke="{Binding Path=Stroke, Converter={StaticResource Ctbc}}"
+                                      Visibility="{Binding Path=Visibility}"
                                       Fill="Transparent" 
                                       StrokeThickness="{Binding Path=StrokeThickness}"/>
                         </DataTemplate>
