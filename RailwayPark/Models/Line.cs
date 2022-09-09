@@ -67,6 +67,24 @@ namespace RailwayPark.ViewModels
         private double strokeThickness = 0.6;
 
         /// <summary>
+        /// Определяет состояние отображения.
+        /// </summary>
+        public Visibility Visibility
+        {
+            get
+            {
+                return visibility;
+            }
+
+            set
+            {
+                visibility = value;
+                OnPropertyChanged(nameof(Visibility));
+            }
+        }
+        public Visibility visibility = Visibility.Visible;
+
+        /// <summary>
         /// Конструктор.
         /// </summary>
         public Line()
@@ -78,6 +96,11 @@ namespace RailwayPark.ViewModels
         /// Возвращает тип объекта.
         /// </summary>
         public override string PrimitiveType => "Line";
+
+        /// <summary>
+        /// Возвращает имя объекта.
+        /// </summary>
+        public string DisplayNeme => $@"{PrimitiveType} №{LineID}";
 
         /// <summary>
         /// Обнаруживает замыкающие вершины и заполняет соответствующие свойства объекта Line.
