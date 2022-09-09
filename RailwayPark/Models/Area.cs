@@ -38,8 +38,14 @@ namespace RailwayPark.ViewModels
         }
         private Color fill = Brushes.Transparent.Color;
 
+        /// <summary>
+        /// Возвращает тип объекта.
+        /// </summary>
         public override string PrimitiveType => "Area";
 
+        /// <summary>
+        /// Возвращает имя объекта.
+        /// </summary>
         public string DisplayNeme => $@"{PrimitiveType} №{AreaID}";
 
         /// <summary>
