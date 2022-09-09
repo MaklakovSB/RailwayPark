@@ -59,6 +59,18 @@ namespace RailwayPark.ViewModels
         /// <summary>
         /// Коллекция area.
         /// </summary>
+        public ObservableCollection<Line> LineItems
+        {
+            get
+            {
+                return lineItems;
+            }
+        }
+        private ObservableCollection<Line> lineItems = new ObservableCollection<Line>();
+
+        /// <summary>
+        /// Коллекция area.
+        /// </summary>
         public ObservableCollection<Area> AreaItems
         {
             get
@@ -69,10 +81,33 @@ namespace RailwayPark.ViewModels
         private ObservableCollection<Area> areaItems = new ObservableCollection<Area>();
 
         /// <summary>
+        /// Выбранная линия для смены визуального состояния.
+        /// </summary>
+        public Line SelectedLineItem
+        {
+            get
+            {
+                return selectedLineItem;
+            }
+
+            set
+            {
+                selectedLineItem = value;
+                OnPropertyChanged(nameof(SelectedLineItem));
+            }
+        }
+        private Line selectedLineItem;
+
+        /// <summary>
         /// Выбранный регион для заливки.
         /// </summary>
         public Area SelectedAreaItem
         {
+            get
+            {
+                return selectedAreaItem;
+            }
+
             set
             {
                 selectedAreaItem = value;
@@ -101,6 +136,23 @@ namespace RailwayPark.ViewModels
             }
         }
         private ICommand cangeColorCommand;
+
+        /// <summary>
+        /// Смена визуального состояния линии.
+        /// </summary>
+        public ICommand CangeVisibilityCommand
+        {
+            get
+            {
+                if (cangeVisibilityCommand == null)
+                {
+                    cangeVisibilityCommand = new DelegateCommand(CangeVisibility);
+                }
+
+                return cangeVisibilityCommand;
+            }
+        }
+        private ICommand cangeVisibilityCommand;
 
         #endregion
 
@@ -228,6 +280,11 @@ namespace RailwayPark.ViewModels
             points.Clear();
 
             points.Add(new Point(450, 80));
+            points.Add(new Point(470, 80));
+            PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
+            points.Clear();
+
+            points.Add(new Point(470, 80));
             points.Add(new Point(520, 80));
             PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
             points.Clear();
@@ -279,12 +336,21 @@ namespace RailwayPark.ViewModels
             points.Clear();
 
             //// Тест метода DetectAndFillTrailingVertices
-            //// Линия не имеющая замыкающих вершин.
+            //// Линия не имеющая замыкающих вершин должна вызвать исключение.
             ////points.Add(new Point(450.5, 100.5));
             ////points.Add(new Point(460.5, 90.5));
             ////PirmitiveItems.Add(PrimitiveFactory.GetBasePrimitive(PrimitiveEnum.Line, 0, 0, 1, points, verteces));
             ////points.Clear();
 
+            // Добавим линии в список для ComboBox'а выбора линии для смены визуального состояния.
+            var onlyLines = PirmitiveItems.OfType<Line>().ToList();
+
+            foreach (var line in onlyLines)
+            {
+                LineItems.Add(line);
+            }
+
+            // найти замкнутые области.
             FindEnclosedAreasOfPrimitives();
         }
 
@@ -449,9 +515,27 @@ namespace RailwayPark.ViewModels
         /// </summary>
         private void CangeColor()
         { 
-            if(selectedAreaItem != null)
+            if(SelectedAreaItem != null)
             {
-                selectedAreaItem.Fill = SelectedFillColor;
+                SelectedAreaItem.Fill = SelectedFillColor;
+            }
+        }
+
+        /// <summary>
+        /// CangeVisibility
+        /// </summary>
+        private void CangeVisibility()
+        {
+            if(SelectedLineItem != null)
+            {
+                if (SelectedLineItem.Visibility == Visibility.Visible)
+                {
+                    SelectedLineItem.Visibility = Visibility.Hidden;
+                }
+                else if(SelectedLineItem.Visibility == Visibility.Hidden)
+                {
+                    SelectedLineItem.Visibility = Visibility.Visible;
+                }
             }
         }
 
