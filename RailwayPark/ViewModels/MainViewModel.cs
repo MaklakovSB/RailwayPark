@@ -57,7 +57,7 @@ namespace RailwayPark.ViewModels
         private ObservableCollection<BasePrimitive> pirmitiveItems = new ObservableCollection<BasePrimitive>();
 
         /// <summary>
-        /// Коллекция area.
+        /// Коллекция LineItems.
         /// </summary>
         public ObservableCollection<Line> LineItems
         {
@@ -69,7 +69,7 @@ namespace RailwayPark.ViewModels
         private ObservableCollection<Line> lineItems = new ObservableCollection<Line>();
 
         /// <summary>
-        /// Коллекция area.
+        /// Коллекция AreaItems.
         /// </summary>
         public ObservableCollection<Area> AreaItems
         {
@@ -522,7 +522,7 @@ namespace RailwayPark.ViewModels
         }
 
         /// <summary>
-        /// CangeVisibility
+        /// Метод смены визуального состояния выбранной линии.
         /// </summary>
         private void CangeVisibility()
         {
