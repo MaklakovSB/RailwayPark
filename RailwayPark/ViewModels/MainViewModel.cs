@@ -138,6 +138,23 @@ namespace RailwayPark.ViewModels
         private ICommand cangeColorCommand;
 
         /// <summary>
+        /// Обесцвечивание области.
+        /// </summary>
+        public ICommand TransparentColorCommand
+        {
+            get
+            {
+                if (transparentColorCommand == null)
+                {
+                    transparentColorCommand = new DelegateCommand(TransparentColor);
+                }
+
+                return transparentColorCommand;
+            }
+        }
+        private ICommand transparentColorCommand;
+
+        /// <summary>
         /// Смена визуального состояния линии.
         /// </summary>
         public ICommand CangeVisibilityCommand
@@ -518,6 +535,17 @@ namespace RailwayPark.ViewModels
             if(SelectedAreaItem != null)
             {
                 SelectedAreaItem.Fill = SelectedFillColor;
+            }
+        }
+
+        /// <summary>
+        /// Метод обесцвечивания областей.
+        /// </summary>
+        private void TransparentColor()
+        {
+            if (SelectedAreaItem != null)
+            {
+                SelectedAreaItem.Fill = Brushes.Transparent.Color;
             }
         }
 
