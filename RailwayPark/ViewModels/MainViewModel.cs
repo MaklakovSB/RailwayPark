@@ -521,10 +521,28 @@ namespace RailwayPark.ViewModels
 
             var newAreas = PirmitiveItems.OfType<Area>().ToList();
 
-            foreach(var area in newAreas)
+
+            // Немного хардкода в соответствии с ТЗ.
+            //foreach(var area in newAreas)
+            //{
+            //    AreaItems.Add(area);
+            //}
+            List<Area> aIs = new List<Area>();
+
+            foreach (var area in newAreas)
             {
-                AreaItems.Add(area);
+                aIs.Add(area);
             }
+
+            AreaItems.Add(aIs[0]);
+            AreaItems.Add(aIs[15]);
+            AreaItems.Add(aIs[35]);
+            AreaItems.Add(aIs[36]);
+            AreaItems.Add(aIs[44]);
+            AreaItems.Add(aIs[45]);
+            AreaItems.Add(aIs[47]);
+            // Конец хардкода в соответствии с ТЗ.
+
         }
 
         /// <summary>
