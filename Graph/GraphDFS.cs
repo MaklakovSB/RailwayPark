@@ -127,21 +127,32 @@ namespace Graph
         /// </summary>
         private void ExcludeCyclesWithTheSameVertices()
         {
-            foreach(var cycle in Cycles)
-            {
-                cycle.RemoveAt(cycle.Count - 1);
-            }
-
             List<List<int>> сyclesForExclude = new List<List<int>>();
+            List<bool> usedSign = new List<bool>();
+
+            for(var b = 0; b < Cycles.Count; b++)
+            {
+                usedSign.Add(false);
+            }
 
             for (var i = 0; i < Cycles.Count; i++)
             {
                 var cycle = Cycles[i];
-                var k = i;
-                k++;
 
-                for (var j = k; j < Cycles.Count; j++)
+                if (usedSign[i] == true)
                 {
+                    continue;
+                }
+
+                for (var j = i + 1; j < Cycles.Count; j++)
+                {
+                    var equ = true;
+
+                    if (usedSign[j] == true)
+                    {
+                        continue;
+                    }
+
                     var cycleTest = Cycles[j];
 
                     if (cycle.Count != cycleTest.Count)
@@ -149,17 +160,32 @@ namespace Graph
                         continue;
                     }
 
-                    foreach(var vertex in cycle)
+                    for(var m = 0; m < cycle.Count; m++)
                     {
+                        var vertex = cycle[m];
                         if (!cycleTest.Any(x => x == vertex))
                         {
+                            equ = false;
                             break;
                         }
-
-                        
                     }
 
-                    сyclesForExclude.Add(cycleTest);
+                    // Необходимо исследовать причину того, что оператор break
+                    // в данной ситуации не прерывал цикл, а срабатывал
+                    // как Continue т.е. переходил к следующей итерации!!!
+                    //foreach(var vertex in cycle)
+                    //{
+                    //    if (!cycleTest.Any(x => x == vertex))
+                    //    {
+                    //        break;
+                    //    }
+                    //}
+
+                    if (equ)
+                    {
+                        usedSign[j] = true;
+                        сyclesForExclude.Add(cycleTest);
+                    }
                 }
             }
 
@@ -185,6 +211,7 @@ namespace Graph
         /// </summary>
         public void CyclesSearch()
         {
+            // Найти все циклы.
             int[] color = new int[Verteces.Count];
             for (int i = 0; i < Verteces.Count; i++)
             {
@@ -198,13 +225,19 @@ namespace Graph
                 DFScycle(i, i, Edges, color, -1, cycle);
             }
 
+            // Удалить последнюю вершину совпадающую с первой у всех циклов.
+            foreach (var cycle in Cycles)
+            {
+                cycle.RemoveAt(cycle.Count - 1);
+            }
+
+            // Исключить повторяющиеся лишние циклы.
+            ExcludeCyclesWithTheSameVertices();
+
             // Очистить исходные списки.
             CatalogCycles.Clear();
             Verteces.Clear();
             Edges.Clear();
-
-            // Исключить повторяющиеся лишние циклы.
-            ExcludeCyclesWithTheSameVertices();
         }
     }
 }
