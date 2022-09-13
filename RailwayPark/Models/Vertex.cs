@@ -31,6 +31,11 @@ namespace RailwayPark.ViewModels
 
         public override string PrimitiveType => "Vertex";
 
+        /// <summary>
+        /// Возвращает имя объекта.
+        /// </summary>
+        public string DisplayNeme => $@"{PrimitiveType} №{VertexID}";
+
         #region Имплементация INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
