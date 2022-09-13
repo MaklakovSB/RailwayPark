@@ -41,6 +41,11 @@
                     Margin="20,0,0,0" 
                     Content="Сменить цвет"
                     Command="{Binding CangeColorCommand}"/>
+            <Button Height="23" 
+                    Width="140" 
+                    Margin="20,0,0,0" 
+                    Content="Обесцветить"
+                    Command="{Binding TransparentColorCommand}"/>
 
         </StackPanel>
 
@@ -68,7 +73,8 @@
                                          Stroke="Transparent"
                                          StrokeThickness="0.0"
                                          Width="2" 
-                                         Height="2"/>
+                                         Height="2"
+                                         ToolTip="{Binding DisplayNeme}"/>
                             </StackPanel>
                         </DataTemplate>
 
@@ -77,7 +83,8 @@
                                       Stroke="{Binding Path=Stroke, Converter={StaticResource Ctbc}}"
                                       Visibility="{Binding Path=Visibility}"
                                       Fill="Transparent" 
-                                      StrokeThickness="{Binding Path=StrokeThickness}"/>
+                                      StrokeThickness="{Binding Path=StrokeThickness}" 
+                                      ToolTip="{Binding DisplayNeme}"/>
                         </DataTemplate>
 
                         <DataTemplate DataType="{x:Type localvm:Area}">
