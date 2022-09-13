@@ -91,7 +91,8 @@
                             <Polyline Points="{Binding Path=Points, Converter={StaticResource Pcc}}"
                                       Stroke="Transparent"
                                       Fill="{Binding Path=Fill, Converter={StaticResource Ctbc}}" 
-                                      StrokeThickness="0.0"/>
+                                      StrokeThickness="0.0"
+                                      ToolTip="{Binding DisplayNeme}"/>
                         </DataTemplate>
                     </ItemsControl.Resources>
 
